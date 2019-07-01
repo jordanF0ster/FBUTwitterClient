@@ -27,6 +27,12 @@ static NSString * const consumerSecret = @"meNr2qELzc7WFVuEeEfqAv3VE9uNlObMmnqrE
     return sharedManager;
 }
 
+/*
+your initialization function returns a value. The type
+of that value is instancetype, which happens to be the same as
+the init function's class. In the case of APIManager, instancetype
+is of type APIManager or any of its subclasses.
+*/
 - (instancetype)init {
     
     NSURL *baseURL = [NSURL URLWithString:baseURLString];

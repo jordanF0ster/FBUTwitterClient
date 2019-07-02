@@ -10,9 +10,11 @@
 #import "APIManager.h"
 #import "Tweet.h"
 #import "TweetCell.h"
+#import "UIImageView+AFNetworking.h"
 
 
-@interface TimelineViewController () <UITableViewDataSource>
+
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *tweetsArray;
@@ -25,6 +27,7 @@
     [super viewDidLoad];
     
     self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
@@ -67,8 +70,12 @@
     cell.userName.text = tweet.user.name;
     cell.screenName.text = tweet.user.screenName;
     cell.tweetText.text = tweet.text;
-    NSString *s = tweet.text;
-    NSLog(@"SSSSSSS:%@", s);
+    NSString *fullProfileImageURLString = tweet.user.profileImage;
+    NSURL *profileImageURL = [NSURL URLWithString:fullProfileImageURLString];
+    cell.profilePicture.image = nil;
+    [cell.profilePicture setImageWithURL:profileImageURL];
+    
+    NSLog(@"SSSSSSS:%@", cell.tweetText.text);
     return cell;
 }
 

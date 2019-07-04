@@ -14,6 +14,7 @@
 #import "ComposeViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "DateTools.h"
 
 @interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate>
 
@@ -76,7 +77,10 @@
     composeController.delegate = self;
 }
 
-
+- (NSString *)timeFromNow{
+    NSDate *date = [[NSDate alloc] init];
+    return [date timeAgoSinceNow];
+}
 
 // reutrns an instance of the custom cell with the reuse identifier
 // with its elements populared with data at the index path
@@ -90,6 +94,8 @@
     cell.userName.text = tweet.user.name;
     cell.screenName.text = tweet.user.screenName;
     cell.tweetText.text = tweet.text;
+    
+    cell.dateLabel.text = [self timeFromNow];
     
     NSString *fullProfileImageURLString = tweet.user.profileImage;
     NSURL *profileImageURL = [NSURL URLWithString:fullProfileImageURLString];

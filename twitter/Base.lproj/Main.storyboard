@@ -233,13 +233,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="dateLabel" destination="TVP-OP-tvZ" id="xFl-2O-JBr"/>
                                             <outlet property="likeCountLabel" destination="zTI-0x-EgZ" id="hrQ-ZB-ENM"/>
                                             <outlet property="likeLabel" destination="kqZ-g9-gbH" id="a7a-gZ-zAP"/>
                                             <outlet property="profilePicture" destination="xik-kN-nNT" id="sEt-xa-7gZ"/>
                                             <outlet property="retweetCountLabel" destination="CMy-ac-lL3" id="VJ5-5j-cvJ"/>
                                             <outlet property="retweetLabel" destination="ugs-rz-LkT" id="xWB-im-1R7"/>
                                             <outlet property="screenName" destination="j9g-Tj-JW1" id="H2W-nH-SRB"/>
-                                            <outlet property="tweetDate" destination="TVP-OP-tvZ" id="uGo-1o-5No"/>
                                             <outlet property="tweetText" destination="DcP-YB-LHQ" id="302-hJ-1lk"/>
                                             <outlet property="userName" destination="2dI-uy-uwP" id="fGP-qs-EdP"/>
                                         </connections>

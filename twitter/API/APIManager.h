@@ -20,5 +20,6 @@
 - (void)destroyFavorite: (Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 - (void)retweet: (Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 - (void)destroyRetweet: (Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
+- (void)getHomeTimelineWithLastTweet:(NSNumber *)maxID completion:(void (^)(NSMutableArray *, NSError *))completion;
 
 @end

@@ -63,22 +63,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Whats Happening?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2w-IR-bue">
-                                <rect key="frame" x="16" y="64" width="343" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Whats Happening?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2w-IR-bue">
+                                <rect key="frame" x="16" y="64" width="239" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3Gh-Ia-VlM">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3Gh-Ia-VlM">
                                 <rect key="frame" x="16" y="117" width="343" height="199"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wcw-gp-6Lo" firstAttribute="bottom" secondItem="3Gh-Ia-VlM" secondAttribute="bottom" constant="351" id="AvZ-Up-qSP"/>
+                            <constraint firstItem="c2w-IR-bue" firstAttribute="leading" secondItem="wcw-gp-6Lo" secondAttribute="leading" constant="16" id="JSg-r2-iTP"/>
+                            <constraint firstItem="wcw-gp-6Lo" firstAttribute="trailing" secondItem="3Gh-Ia-VlM" secondAttribute="trailing" constant="16" id="JrH-7l-zbC"/>
+                            <constraint firstItem="3Gh-Ia-VlM" firstAttribute="top" secondItem="c2w-IR-bue" secondAttribute="bottom" constant="18" id="k2K-B1-tp1"/>
+                            <constraint firstItem="3Gh-Ia-VlM" firstAttribute="leading" secondItem="wcw-gp-6Lo" secondAttribute="leading" constant="16" id="w2f-bs-PuS"/>
+                            <constraint firstItem="c2w-IR-bue" firstAttribute="top" secondItem="wcw-gp-6Lo" secondAttribute="top" id="x8r-at-Vts"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="wcw-gp-6Lo"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ln0-ZE-3xH">
@@ -153,8 +159,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@userName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dI-uy-uwP">
-                                                    <rect key="frame" x="184" y="11" width="93" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
+                                                    <rect key="frame" x="184" y="15.5" width="68.5" height="14.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="12"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

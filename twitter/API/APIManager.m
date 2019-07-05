@@ -90,6 +90,21 @@ is of type APIManager or any of its subclasses.
    }];
 }
 
+- (void)getHomeTimelineWithLastTweet:(NSNumber *)maxID completion:(void (^)(NSMutableArray *, NSError *))completion {
+    NSDictionary *parameters = @{@"max_id": maxID};
+
+    // Create a GET Request
+    [self GET:@"1.1/statuses/home_timeline.json"
+   parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+       // Success
+       NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+       completion(tweets, nil);
+   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       // There was a problem
+       completion(nil, error);
+   }];
+}
+
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion{
     NSString *urlString = @"1.1/statuses/update.json";
     NSDictionary *parameters = @{@"status": text};

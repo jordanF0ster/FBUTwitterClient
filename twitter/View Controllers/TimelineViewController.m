@@ -16,10 +16,12 @@
 #import "LoginViewController.h"
 #import "DateTools.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate>
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *tweetsArray;
+@property (assign, nonatomic) BOOL isMoreDataLoading;
+@property (strong, nonatomic) NSNumber *maxTweetID;
 
 @end
 
@@ -46,12 +48,26 @@
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSMutableArray *tweets, NSError *error) {
         if (tweets) {
             self.tweetsArray = tweets; // stores data passed by completion handler
-            NSLog(@"😎😎😎 Successfully loaded home timeline");
-            NSLog(@"%lu", self.tweetsArray.count);
-            //            for (Tweet *tweetObj in tweets) {
-            //                NSString *text = tweetObj.text;
-            //                NSLog(@"%@", text);
-            //            }
+            Tweet *tweet = [self.tweetsArray objectAtIndex:(self.tweetsArray.count - 1)];
+            self.maxTweetID = [NSNumber numberWithInteger:[tweet.idStr intValue]];
+            
+            [self.tableView reloadData]; // calls numberOfRows and cellForRowAt
+        } else {
+            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+        }
+    }];
+}
+
+- (void)fetchLastTweets {
+    // Get timeline
+    // creates an instance on first call, otherwise grabs the same instance
+    // the completion block allows for you to continue running the app even if request fails
+    [[APIManager shared] getHomeTimelineWithLastTweet:self.maxTweetID completion:^(NSMutableArray *tweets, NSError *error) {
+        if (tweets) {
+            [self.tweetsArray addObjectsFromArray:tweets]; // stores data passed by completion handler
+            Tweet *tweet = [self.tweetsArray objectAtIndex:(self.tweetsArray.count - 1)];
+            self.maxTweetID = [NSNumber numberWithInteger:[tweet.idStr intValue]];
+            
             [self.tableView reloadData]; // calls numberOfRows and cellForRowAt
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
@@ -91,11 +107,11 @@
     cell.tweet = tweet;
     [cell refreshData];
     
-    cell.userName.text = tweet.user.name;
+    cell.userName.text = [NSString stringWithFormat:@"@%@",tweet.user.name];
     cell.screenName.text = tweet.user.screenName;
     cell.tweetText.text = tweet.text;
     
-    cell.dateLabel.text = [self timeFromNow];
+    cell.dateLabel.text = [NSString stringWithFormat:@"%@", [tweet.date timeAgoSinceNow]];
     
     NSString *fullProfileImageURLString = tweet.user.profileImage;
     NSURL *profileImageURL = [NSURL URLWithString:fullProfileImageURLString];
@@ -125,7 +141,6 @@
     
     //[self fetchTweets];
     [self.tweetsArray insertObject:tweet atIndex:0];
-    NSLog(@"COUNTTTTT22222222222    : %lu", self.tweetsArray.count);
     [self.tableView reloadData];
     
 }
@@ -139,5 +154,23 @@
     [[APIManager shared] logout];
 }
 
+-(void)loadMoreData{
+    self.isMoreDataLoading = false;
+    [self fetchLastTweets];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if(!self.isMoreDataLoading){
+        // Calculate the position of one screen length before the bottom of the results
+        int scrollViewContentHeight = self.tableView.contentSize.height;
+        int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+        
+        // When the user has scrolled past the threshold, start requesting
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+            self.isMoreDataLoading = true;
+            [self loadMoreData];
+        }
+    }
+}
 
 @end

@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@protocol TweetCellDelegate;
+
 @interface TweetCell : UITableViewCell
 
 @property (weak, nonatomic) Tweet *tweet;
@@ -24,6 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 - (void)refreshData;
+
+@property (nonatomic, weak) id<TweetCellDelegate> delegate;
+
+@end
+
+@protocol TweetCellDelegate
+- (void)tweetCell:(TweetCell *) tweetCell didTap: (User *)user;
 @end
 
 NS_ASSUME_NONNULL_END

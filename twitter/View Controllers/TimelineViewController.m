@@ -58,17 +58,20 @@
     }];
 }
 
-- (void)fetchLastTweets {
+- (void)loadMoreData {
+    
+    
     // Get timeline
     // creates an instance on first call, otherwise grabs the same instance
     // the completion block allows for you to continue running the app even if request fails
     [[APIManager shared] getHomeTimelineWithLastTweet:self.maxTweetID completion:^(NSMutableArray *tweets, NSError *error) {
         if (tweets) {
             [self.tweetsArray addObjectsFromArray:tweets]; // stores data passed by completion handler
-            Tweet *tweet = [self.tweetsArray objectAtIndex:(self.tweetsArray.count - 1)];
-            self.maxTweetID = [NSNumber numberWithInteger:[tweet.idStr intValue]];
-            
+            Tweet *lastTweet = [self.tweetsArray objectAtIndex:(self.tweetsArray.count - 1)];
+            self.maxTweetID = [NSNumber numberWithInteger:[lastTweet.idStr intValue]];
+            NSLog(@"REEEEEEEEEEEEEE");
             [self.tableView reloadData]; // calls numberOfRows and cellForRowAt
+            self.isMoreDataLoading = NO;
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -154,11 +157,6 @@
     [[APIManager shared] logout];
 }
 
--(void)loadMoreData{
-    self.isMoreDataLoading = false;
-    [self fetchLastTweets];
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(!self.isMoreDataLoading){
         // Calculate the position of one screen length before the bottom of the results
@@ -167,10 +165,11 @@
         
         // When the user has scrolled past the threshold, start requesting
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
-            self.isMoreDataLoading = true;
+            self.isMoreDataLoading = YES;
             [self loadMoreData];
         }
     }
 }
+
 
 @end

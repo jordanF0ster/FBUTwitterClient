@@ -8,12 +8,14 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
+
 @interface TweetCell()
 
 @property (weak, nonatomic) IBOutlet UILabel *likeCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetCountLabel;
 
 @end
+
 @implementation TweetCell
 
 - (void)awakeFromNib {
@@ -108,6 +110,14 @@
             }
         }];
     }
+}
+
+- (void) didTapUserProfile:(UITapGestureRecognizer *)sender{
+    // TODO: Call method on delegate
+    
+    UITapGestureRecognizer *profileTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(didTapUserProfile:)];
+    [self.delegate tweetCell:self didTap:self.tweet.user];
+
 }
 
 

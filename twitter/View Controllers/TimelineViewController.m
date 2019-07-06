@@ -16,7 +16,7 @@
 #import "LoginViewController.h"
 #import "DateTools.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate, UIScrollViewDelegate>
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, ComposeViewControllerDelegate, UIScrollViewDelegate, TweetCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *tweetsArray;
@@ -94,6 +94,10 @@
     UINavigationController *navigationController = [segue destinationViewController];
     ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
     composeController.delegate = self;
+    
+    if ([segue.identifier isEqual:sender]){
+        
+    }
 }
 
 - (NSString *)timeFromNow{
@@ -116,6 +120,8 @@
     
     cell.dateLabel.text = [NSString stringWithFormat:@"%@", [tweet.date timeAgoSinceNow]];
     
+    cell.delegate = self;
+
     NSString *fullProfileImageURLString = tweet.user.profileImage;
     NSURL *profileImageURL = [NSURL URLWithString:fullProfileImageURLString];
     cell.profilePicture.image = nil;
@@ -171,5 +177,11 @@
     }
 }
 
+- (void)tweetCell:(TweetCell *)tweetCell didTap:(User *)user{
+    // TODO: Perform segue to profile view controller
+    
+    NSLog(@"SHHHHH");
+    [self performSegueWithIdentifier:@"profileSegue" sender:user];
+}
 
 @end

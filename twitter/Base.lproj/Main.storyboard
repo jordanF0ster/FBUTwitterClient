@@ -146,9 +146,6 @@
                                                         <constraint firstAttribute="width" constant="56" id="N0b-JN-GQ7"/>
                                                         <constraint firstAttribute="height" constant="56" id="Z5Q-Eg-shP"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="gpA-aS-bJy" appends="YES" id="IMP-7e-EXv"/>
-                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="screenName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9g-Tj-JW1">
                                                     <rect key="frame" x="79" y="11" width="97" height="21"/>
@@ -280,10 +277,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="ma6-tJ-ORY" id="BMs-Qy-Jjy"/>
+                        <segue destination="Evt-zd-7ip" kind="show" id="t04-jn-aor"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="gpA-aS-bJy"/>
             </objects>
             <point key="canvasLocation" x="1660" y="36.431784107946029"/>
         </scene>
@@ -326,7 +323,7 @@
         <!--View Controller-->
         <scene sceneID="OCO-qJ-uBJ">
             <objects>
-                <viewController id="Evt-zd-7ip" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="Evt-zd-7ip" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="77l-4x-SQi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -537,4 +534,7 @@
         <image name="retweet-icon" width="30" height="30"/>
         <image name="retweet-icon-green" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="t04-jn-aor"/>
+    </inferredMetricsTieBreakers>
 </document>
